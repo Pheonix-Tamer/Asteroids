@@ -1,7 +1,8 @@
 import pygame
 from constants import * # NOQA
 from player import Player
-from asteroids import Asteroids
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     # Starting Info
@@ -16,10 +17,10 @@ def main():
     # Groups Declaration
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    asteroids = pygame.sprite.Group()
+    asteroid = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
-    Asteroids.containers = (updatable, drawable, asteroids)
+    Asteroid.containers = (updatable, drawable, asteroid)
 
     # declare a clock object and instantiate the player in the centre of the screen
     clock = pygame.time.Clock()
