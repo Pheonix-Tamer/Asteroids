@@ -3,6 +3,7 @@ from constants import * # NOQA
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     # Starting Info
@@ -17,15 +18,20 @@ def main():
     # Groups Declaration
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    asteroid = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
-    Asteroid.containers = (updatable, drawable, asteroid)
+    Asteroid.containers = (updatable, drawable, asteroids)
+    AsteroidField.containers = (updatable)
+    Shot.containers = (updatable, drawable, shots)
+
 
     # declare a clock object and instantiate the player in the centre of the screen
     clock = pygame.time.Clock()
     dt = 0 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroid_field = AsteroidField()
 
 
     while(True):
@@ -36,6 +42,17 @@ def main():
         for obj in updatable:
             obj.update(dt)
         
+        for ast in asteroids:
+            if ast.collisionCheck(player):
+                print("Game Over!")
+                pygame.QUIT
+                quit()
+            for shot in shots:
+                if ast.collisionCheck(shot):
+                    ast.split()
+                    shot.kill()
+
+            
         screen.fill("black")
 
         # drawable.draw(screen) # This will be for a later thing when we add image and Rect
