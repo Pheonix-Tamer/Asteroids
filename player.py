@@ -1,3 +1,4 @@
+import py_compile
 import pygame
 from circleshape import CircleShape
 from constants import * 
@@ -59,8 +60,11 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             self.move(dt * -1)
         
-        if self.shot_timer <= 0:
-            if keys[pygame.K_SPACE]:
+        # if self.shot_timer <= 0:
+        #     if keys[pygame.K_SPACE]:
+        #         self.shoot()
+        if keys[pygame.K_SPACE]:
+            if self.shot_timer <= 0:
                 self.shoot()
     
 
